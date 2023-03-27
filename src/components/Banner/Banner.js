@@ -3,6 +3,7 @@ import './Banner.css';
 import {db} from "../../config/firebaseConfig"
 //need some functions from firestore
 import {collection, getDocs, query, orderBy, limit} from "firebase/firestore"
+import {Link} from "react-router-dom"
 
 
 //this component will show the five most recent articles
@@ -41,22 +42,22 @@ function Banner() {
     )
   return (
     <div className="banner-container">
-        <div className="main-article-container" 
+        <Link to={`/article/${mainArticle?.id}`} className="main-article-container" 
              style={{backgroundImage:`url(${mainArticle?.imageUrl})`}}>
                 <div className="banner-info">
                     <h2>{mainArticle?.title}</h2>
                     <p>{mainArticle?.createdAt?.toDate().toDateString()}</p>
                 </div>
-        </div>
+        </Link>
         <div className="other-articles-container">
             {
                 otherArticles.map(item => (
-                    <div className="other-article-item" key={item?.id} style={{backgroundImage:`url(${item?.imageUrl})`}}>
+                    <Link to={`/article/${item?.id}`} className="other-article-item" key={item?.id} style={{backgroundImage:`url(${item?.imageUrl})`}}>
                         <div className="banner-info">
                             <h3>{item?.title}</h3>
                             <small>{item?.createdAt?.toDate().toDateString()}</small>
                         </div>
-                    </div>
+                    </Link>
                 ))
             }
         </div>
